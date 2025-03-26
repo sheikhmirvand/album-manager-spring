@@ -4,6 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/main/**/**/upload
 !**/src/main/resources/static/tailwind/node_modules/
+**/node_modules/
 !**/src/test/**/target/
 
 
