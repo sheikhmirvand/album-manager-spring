@@ -43,4 +43,5 @@ public class CreateArtistInput {
     public void setNikName(String nikName) {
         this.nikName = nikName;
     }
+    
 }
