@@ -3,7 +3,7 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/main/**/**/upload
-!**/src/main/resources/static/tailwind/node_modules
+!**/src/main/resources/static/tailwind/node_modules/
 !**/src/test/**/target/
 
 
