@@ -6,6 +6,7 @@ target/
 !**/src/main/resources/static/tailwind/node_modules
 !**/src/test/**/target/
 
+
 ### STS ###
 .apt_generated
 .classpath
