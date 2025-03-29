@@ -1,7 +1,11 @@
 package com.example.album.bootstrap;
 
+import com.example.album.model.Album;
+import com.example.album.model.Artist;
 import com.example.album.model.Role;
 import com.example.album.model.User;
+import com.example.album.repository.AlbumRepository;
+import com.example.album.repository.ArtistRepository;
 import com.example.album.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,9 +20,13 @@ import java.nio.file.Paths;
 public class Bootstrap implements CommandLineRunner {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final ArtistRepository artistRepository;
+    private final AlbumRepository albumRepository;
 
-    public Bootstrap(UserRepository userRepository) {
+    public Bootstrap(UserRepository userRepository, ArtistRepository artistRepository, AlbumRepository albumRepository) {
         this.userRepository = userRepository;
+        this.artistRepository = artistRepository;
+        this.albumRepository = albumRepository;
     }
 
     @Override
@@ -32,6 +40,19 @@ public class Bootstrap implements CommandLineRunner {
             }
             admin.setRole(Role.ROLE_ADMIN);
             userRepository.save(admin);
+
+            Artist testArtist = new Artist();
+            testArtist.setFirstName("test artist");
+            testArtist.setLastName("test");
+            testArtist.setNikName("test nikname");
+
+            artistRepository.save(testArtist);
+
+            Album testAlbum = new Album();
+            testAlbum.setArtist(testArtist);
+            testAlbum.setName("test album");
+            testAlbum.setPrice(10.0);
+            albumRepository.save(testAlbum);
         }
     }
 }
