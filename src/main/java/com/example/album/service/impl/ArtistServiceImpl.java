@@ -33,6 +33,16 @@ public class ArtistServiceImpl implements ArtistService {
 	}
 
 	@Override
+	public ArtistDto createArtistAndReturn(CreateArtistInput input) {
+		Artist artist = input.toArtist();
+		artist = artistRepository.save(artist);
+		if (artistRepository.findById(artist.getId()).isPresent())
+			return null;
+
+		return artist.getArtistDto();
+	}
+
+	@Override
 	public List<ArtistDto> getAllArtist() {
 
 		return artistRepository.findAll().stream().map(Artist::getArtistDto).collect(Collectors.toList());

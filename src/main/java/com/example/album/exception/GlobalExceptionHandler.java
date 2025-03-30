@@ -17,7 +17,13 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ArtistNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String artistNotFoundExceptionHandler (ArtistNotFoundException e) {
-    	System.out.println("asdadasdsaddddd ali khodast");
+    	System.out.println("");
       return "artistNotFound";
+    }
+
+    @ExceptionHandler(AlbumNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String albumNotFoundExceptionHandler () {
+        return "albumNotFound";
     }
 }

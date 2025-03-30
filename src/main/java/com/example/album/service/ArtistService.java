@@ -8,6 +8,7 @@ import com.example.album.exception.ArtistNotFoundException;
 
 public interface ArtistService {
     boolean createArtist (CreateArtistInput input);
+    ArtistDto createArtistAndReturn(CreateArtistInput input);
     List<ArtistDto> getAllArtist();
     ArtistDto getArtistById(Long id) throws ArtistNotFoundException;
 }
