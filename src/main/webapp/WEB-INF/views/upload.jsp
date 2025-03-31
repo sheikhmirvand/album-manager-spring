@@ -13,6 +13,7 @@
     <title>Document</title>
 </head>
 <body>
+<jsp:include page="navbar.jsp"/>
 <form action="/admin/upload-music" method="post" enctype="multipart/form-data">
     <input type="file" name="music" id="" placeholder="upload your music">
     <input type="text" name="name" placeholder="enter music name">

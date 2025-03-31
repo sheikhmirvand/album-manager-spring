@@ -3,22 +3,28 @@ package com.example.album.dto;
 import com.example.album.model.Artist;
 import com.example.album.model.Music;
 
+import java.time.LocalDateTime;
+
 public class AlbumDto {
 	private Long id;
     private String name;
     private double price;
     private Music sampleMusic;
     private Artist artist;
-	
-    public AlbumDto() {
+    private LocalDateTime createdAt;
+    private String cover;
+
+	public AlbumDto() {
 	}
 
-	public AlbumDto(Long id, String name, double price, Music sampleMusic, Artist artist) {
+	public AlbumDto(Long id, String name, double price, Music sampleMusic, Artist artist, LocalDateTime createdAt, String cover) {
 		this.id = id;
 		this.name = name;
 		this.price = price;
 		this.sampleMusic = sampleMusic;
 		this.artist = artist;
+		this.createdAt = createdAt;
+		this.cover = cover;
 	}
 
 	public Long getId() {
@@ -61,5 +67,19 @@ public class AlbumDto {
 		this.artist = artist;
 	}
 
-    
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public String getCover() {
+		return cover;
+	}
+
+	public void setCover(String cover) {
+		this.cover = cover;
+	}
 }

@@ -3,31 +3,74 @@ package com.example.album.model;
 import com.example.album.dto.AlbumDto;
 
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
+
+import java.time.LocalDateTime;
 
 @Entity
 public class Album {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
+
     private double price;
+
+    private String cover;
+
     @OneToOne
     @JoinColumn(name = "music_id")
     private Music sampleMusic;
+
     @ManyToOne
     private Artist artist;
+
+    @CreatedDate
+    private LocalDateTime getCreatedAt = LocalDateTime.now();
+
     public Album() {
     }
 
-    public Album(Long id, String name, double price, Music sampleMusic) {
+    @CreatedDate
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    public Album(Long id, String name, double price, Music sampleMusic,LocalDateTime createdAt,String cover) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.sampleMusic = sampleMusic;
+        this.createdAt = createdAt;
+        this.cover = cover;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public LocalDateTime getGetCreatedAt() {
+        return getCreatedAt;
+    }
+
+
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
+    }
+
+    public void setGetCreatedAt(LocalDateTime getCreatedAt) {
+        this.getCreatedAt = getCreatedAt;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     public void setId(Long id) {
@@ -45,7 +88,7 @@ public class Album {
     public double getPrice() {
         return price;
     }
-    
+
     public AlbumDto getAlbumDto () {
     	AlbumDto albumDto = new AlbumDto();
     	albumDto.setId(id);
@@ -53,6 +96,7 @@ public class Album {
     	albumDto.setName(name);
     	albumDto.setPrice(price);
     	albumDto.setSampleMusic(sampleMusic);
+    	albumDto.setCreatedAt(createdAt);
     	return albumDto;
     }
 

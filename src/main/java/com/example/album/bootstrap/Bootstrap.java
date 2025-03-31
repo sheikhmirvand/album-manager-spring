@@ -31,12 +31,16 @@ public class Bootstrap implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        userRepository.deleteAll();
+        artistRepository.deleteAll();
+        albumRepository.deleteAll();
         if(userRepository.findByUsername("admin").isEmpty()){
             User admin = new User();
             admin.setUsername("admin");
             admin.setPassword(passwordEncoder.encode("12345678"));
-            if(Files.exists(Paths.get("/home/ali/Desktop/show/album/src/main/resources/upload"))){
-                Files.createDirectories(Path.of("/home/ali/Desktop/show/album/src/main/resources/upload"));
+            if(!Files.exists(Paths.get("/home/ali/Desktop/show/album/src/main/resources/upload"))){
+                Files.createDirectories(Path.of("/home/ali/Desktop/show/album/src/main/resources/upload/music"));
+                Files.createDirectories(Path.of("/home/ali/Desktop/show/album/src/main/resources/upload/cover"));
             }
             admin.setRole(Role.ROLE_ADMIN);
             userRepository.save(admin);

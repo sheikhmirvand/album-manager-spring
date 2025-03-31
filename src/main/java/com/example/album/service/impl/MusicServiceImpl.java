@@ -10,7 +10,7 @@ import java.io.IOException;
 @Service
 public class MusicServiceImpl implements MusicService {
 
-    public final static String UPLOAD_PATH = "/home/ali/Desktop/show/album/src/main/resources/upload/";
+    public final static String UPLOAD_PATH = "/home/ali/Desktop/show/album/src/main/resources/upload/music/";
 
     @Override
     public boolean uploadMusic(CreateMusicInput input) throws IOException {

@@ -12,7 +12,8 @@
     <title>create artist</title>
 </head>
 <body>
-    <form:form action="/admin/create-artist" modelAttribute="artist" method="post" class="flex flex-col bg-red-500">
+    <jsp:include page="navbar.jsp"/>
+    <form:form action="/admin/create-artist" modelAttribute="artist" method="post" class="flex">
         <label>first name</label>
         <form:input path="firstName" htmlAttributes="{placeholder='Enter first name'}"></form:input>
         <label>last name</label>

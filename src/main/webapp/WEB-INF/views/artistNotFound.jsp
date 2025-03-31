@@ -10,6 +10,7 @@
   <title>Document</title>
 </head>
 <body>
+  <jsp:include page="navbar.jsp"/>
   <h1>artist not found</h1>
 </body>
 </html>

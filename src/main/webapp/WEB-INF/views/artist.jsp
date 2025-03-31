@@ -11,6 +11,6 @@
 	<title>Document</title>
 </head>
 <body>
-
+	<jsp:include page="navbar.jsp"/>
 </body>
 </html>

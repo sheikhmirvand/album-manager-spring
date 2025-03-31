@@ -41,7 +41,7 @@ public class AdminController {
        Boolean isArtistCreated =  artistService.createArtist(artistInput);
        System.out.println(isArtistCreated);
        if(isArtistCreated)
-            return "redirect:/artist";
+            return "redirect:/artists";
        return "/create-artist?error=true";
     }
     
@@ -52,13 +52,13 @@ public class AdminController {
     }
 
     @PostMapping("/create-album")
-    public String createArtist (@ModelAttribute("inputAlbum") CreateAlbumDto inputAlbum) {
+    public String createArtist (@ModelAttribute("inputAlbum") CreateAlbumDto inputAlbum) throws Exception {
         boolean newAlbum = albumService.createNewAlbum(inputAlbum);
         if(newAlbum) {
             return "redirect:/admin/upload-music";
         }
 
-        return "redirect:/admin/create-artost?error=true";
+        return "redirect:/admin/create-artist?error=true";
     }
 
     @GetMapping("/upload-music")

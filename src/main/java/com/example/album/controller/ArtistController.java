@@ -21,7 +21,7 @@ public class ArtistController {
 	}
 	
 	
-	@GetMapping("/artist")
+	@GetMapping("/artists")
 	public String getArtistsPage (Model model) {
 		List<ArtistDto> artists = artistService.getAllArtist();
 		model.addAttribute("artists",artists);
