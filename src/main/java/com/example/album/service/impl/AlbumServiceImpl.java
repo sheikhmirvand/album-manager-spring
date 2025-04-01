@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class AlbumServiceImpl implements AlbumService {
-    public final static String UPLOAD_PATH = "/home/ali/Desktop/show/album/src/main/resources/static/upload/cover/";
+    public final static String UPLOAD_PATH = "/home/ali/Desktop/show/album/upload/cover/";
     private final AlbumRepository albumRepository;
     private final ArtistRepository artistRepository;
 

@@ -6,7 +6,7 @@
 %>
 
 <nav>
-    <div class="flex h-12 justify-between px-6 bg-blue-300 items-center font-mono">
+    <div class="flex h-12 justify-between px-6 container mx-auto bg-blue-300 items-center font-mono">
         <div class="right_nav">
             <a href="/">
                 <h1>LOGO</h1>

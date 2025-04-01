@@ -13,6 +13,8 @@
 <body>
 
     <jsp:include page="navbar.jsp"/>
-    <h1>this is home page</h1>
+    <div class="container">
+        <h1>this is home page</h1>
+    </div>
 </body>
 </html>

@@ -23,7 +23,7 @@ public class AlbumController {
     @GetMapping
     public String getAllAlbum(Model model) {
         List<AlbumDto> allAlbum = albumService.getAllAlbum();
-        System.out.println("albums");
+        System.out.println(allAlbum.get(0).getArtist().getFirstName());
         model.addAttribute("albums",allAlbum);
         return "albumList";
     }

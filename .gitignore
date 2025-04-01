@@ -7,7 +7,7 @@ target/
 **/node_modules/
 /src/main/resources/static/tailwind/node_modules/
 !**/src/test/**/target/
-
+/upload
 
 ### STS ###
 .apt_generated
