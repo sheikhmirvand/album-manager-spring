@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class AlbumServiceImpl implements AlbumService {
-    public final static String UPLOAD_PATH = "/home/ali/Desktop/show/album/src/main/resources/upload/cover/";
+    public final static String UPLOAD_PATH = "/home/ali/Desktop/show/album/src/main/resources/static/upload/cover/";
     private final AlbumRepository albumRepository;
     private final ArtistRepository artistRepository;
 
@@ -38,11 +38,11 @@ public class AlbumServiceImpl implements AlbumService {
 
         Artist artist = optionalArtist.get();
 
-        String savedFileName = UPLOAD_PATH
-                + Math.floor(Math.random() * 100)
+        String savedFileName = Math.floor(Math.random() * 100)
                 + input.getFile().getOriginalFilename();
+        String savedFilePath = UPLOAD_PATH + savedFileName;
 
-		File file = new File(savedFileName);
+		File file = new File(savedFilePath);
 		input.getFile().transferTo(file);
 
 

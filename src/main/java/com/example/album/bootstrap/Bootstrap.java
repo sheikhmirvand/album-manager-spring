@@ -38,9 +38,9 @@ public class Bootstrap implements CommandLineRunner {
             User admin = new User();
             admin.setUsername("admin");
             admin.setPassword(passwordEncoder.encode("12345678"));
-            if(!Files.exists(Paths.get("/home/ali/Desktop/show/album/src/main/resources/upload"))){
-                Files.createDirectories(Path.of("/home/ali/Desktop/show/album/src/main/resources/upload/music"));
-                Files.createDirectories(Path.of("/home/ali/Desktop/show/album/src/main/resources/upload/cover"));
+            if(!Files.exists(Paths.get("/home/ali/Desktop/show/album/src/main/resources/static/upload"))){
+                Files.createDirectories(Path.of("/home/ali/Desktop/show/album/src/main/resources/static/upload/music"));
+                Files.createDirectories(Path.of("/home/ali/Desktop/show/album/src/main/resources/static/upload/cover"));
             }
             admin.setRole(Role.ROLE_ADMIN);
             userRepository.save(admin);

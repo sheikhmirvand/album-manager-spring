@@ -14,6 +14,7 @@
     <jsp:include page="navbar.jsp"/>
     <c:forEach items="${albums}" var="album">
         <a href="/album/${album.id}">${album.name}</a>
+        <h1>${album.cover}</h1>
     </c:forEach>
 </body>
 </html>

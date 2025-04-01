@@ -97,6 +97,7 @@ public class Album {
     	albumDto.setPrice(price);
     	albumDto.setSampleMusic(sampleMusic);
     	albumDto.setCreatedAt(createdAt);
+    	albumDto.setCover(cover);
     	return albumDto;
     }
 

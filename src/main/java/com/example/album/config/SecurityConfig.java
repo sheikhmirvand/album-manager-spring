@@ -24,7 +24,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeHttpRequests(auth ->{
-            auth.requestMatchers("/register","/login","/WEB-INF/views/login.jsp","/WEB-INF/views/register.jsp","/assets/**","/css/**")
+            auth.requestMatchers("/register","/login","/WEB-INF/views/login.jsp","/WEB-INF/views/register.jsp","/assets/**","/css/**","/upload/**")
                     .permitAll()
                     .requestMatchers("/admin/**")
                     .hasAuthority(Role.ROLE_ADMIN.name())
