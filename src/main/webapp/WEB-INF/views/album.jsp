@@ -11,5 +11,26 @@
 <body>
     <jsp:include page="navbar.jsp"/>
     <h1>${album.name}</h1>
+    <button class="addToCartButton">add to cart</button>
+    <input type="number" name="quantity" id="" class="quantity"/>
+
+    <script>
+        const addToCartButton = document.querySelector(".addToCartButton");
+        const albumQuantity = document.querySelector(".quantity");
+
+        addToCartButton.addEventListener("click",e=>{
+            e.preventDefault();
+            const path = window.location.pathname.split("/").at(-1);
+            console.log(albumQuantity.value);
+
+            fetch("/order/create-order/"+path+"?quantity="+albumQuantity.value,{
+                method : "POST",
+            }).then(response=>{
+                if(response.redirected) {
+                    window.location.href = response.url
+                }
+            })
+        })
+    </script>
 </body>
 </html>

@@ -1,52 +1,27 @@
-package com.example.album.model;
+package com.example.album.dto;
 
-import com.example.album.dto.OrderDto;
-import jakarta.persistence.*;
-import org.springframework.data.annotation.CreatedDate;
-
-import java.time.LocalDate;
+import com.example.album.model.Album;
+import com.example.album.model.OrderItem;
+import com.example.album.model.User;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name = "orders")
-public class Order {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class OrderDto {
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", unique = true, nullable = false)
     private User user;
 
-    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
     List<OrderItem> albums = new ArrayList<>();
 
     private Double totalPrice;
 
-    @CreatedDate
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime createdAt ;
 
-
-    public void addAlbum(OrderItem album) {
-        albums.add(album);
+    public OrderDto() {
     }
 
-    public OrderDto getOrderDto () {
-        OrderDto orderDto = new OrderDto();
-        orderDto.setId(id);
-        orderDto.setAlbums(albums);
-        orderDto.setUser(user);
-        orderDto.setCreatedAt(createdAt);
-        orderDto.setTotalPrice(totalPrice);
-        return orderDto;
-    }
-
-    public Order() {
-    }
-
-    public Order(Long id, User user, List<OrderItem> albums, Double totalPrice, LocalDateTime createdAt) {
+    public OrderDto(Long id, User user, List<OrderItem> albums, Double totalPrice, LocalDateTime createdAt) {
         this.id = id;
         this.user = user;
         this.albums = albums;

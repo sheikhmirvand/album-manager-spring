@@ -1,51 +1,77 @@
 package com.example.album.service.impl;
 
+import com.example.album.dto.OrderDto;
 import com.example.album.exception.AlbumNotFoundException;
-import com.example.album.model.Album;
-import com.example.album.model.Order;
-import com.example.album.model.User;
-import com.example.album.repository.AlbumRepository;
-import com.example.album.repository.OrderRepository;
-import com.example.album.repository.UserRepository;
+import com.example.album.model.*;
+import com.example.album.repository.*;
 import com.example.album.service.OrderService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class OrderServiceImpl implements OrderService {
 
     private final AlbumRepository albumRepository;
     private final OrderRepository orderRepository;
-    private final UserRepository userRepository;
+    private final OrderItemRepository orderItemRepository;
+    private final PaidOrderRepository paidOrderRepository;
 
-    public OrderServiceImpl(AlbumRepository albumRepository, OrderRepository orderRepository, UserRepository userRepository) {
+    public OrderServiceImpl(AlbumRepository albumRepository, OrderRepository orderRepository, OrderItemRepository orderItemRepository, PaidOrderRepository paidOrderRepository) {
         this.albumRepository = albumRepository;
         this.orderRepository = orderRepository;
-        this.userRepository = userRepository;
+        this.paidOrderRepository = paidOrderRepository;
+
+        this.orderItemRepository = orderItemRepository;
     }
 
     @Override
-    public void addAlbumToOrder(Long albumId) throws AlbumNotFoundException {
+    public void addAlbumToOrder(Long albumId,int quantity) throws AlbumNotFoundException {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        Order order = orderRepository.findByUser(user).get();
+
         Album album = albumRepository.findById(albumId)
-                .orElseThrow(() -> new AlbumNotFoundException("album not found"));
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+                .orElseThrow(()->new AlbumNotFoundException("album not found"));
 
-        User user = userRepository.findByUsername(email).get();
+        OrderItem orderItem = orderItemRepository.findByUserAndAlbum(user,album)
+                .orElse(new OrderItem());
 
-        Optional<Order> optionalOrder = orderRepository.findByUser(user);
-        Order order;
+        orderItem.setAlbum(album);
+        System.out.println(order.getTotalPrice());
+        orderItem.setUser(user);
+        orderItem.setQuantity(quantity);
+        order.addAlbum(orderItem);
+        orderItemRepository.save(orderItem);
+    }
 
-        // create new order if order not exists
-        if(optionalOrder.isEmpty()) {
-            order = new Order();
-            order.setUser(user);
-            order = orderRepository.save(order);
-        }else {
-            order = optionalOrder.get();
-        }
+    @Override
+    public OrderDto getUserOrder() {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        order.addAlbum(album);
+        Order order = orderRepository.findByUser(user).get();
+        order.setTotalPrice(order.getAlbums().stream().mapToDouble((item) -> item.getQuantity() * item.getAlbum().getPrice()).sum());
+        return order.getOrderDto();
+    }
+
+    @Override
+    public void payOrder() {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Order order = orderRepository.findByUser(user).orElseThrow(()->new RuntimeException("order not found"));
+
+        order.setUser(null);
+        orderRepository.save(order);
+
+        PaidOrder paidOrder = new PaidOrder();
+        paidOrder.setOrder(order);
+
+        paidOrderRepository.save(paidOrder);
+
+        // create new order
+        Order newOrder = new Order();
+        newOrder.setUser(user);
+        orderRepository.save(newOrder);
+
+        // delete user order
+        orderRepository.deleteById(order.getId());
     }
 }

@@ -31,9 +31,6 @@ public class Bootstrap implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        userRepository.deleteAll();
-        artistRepository.deleteAll();
-        albumRepository.deleteAll();
         if(userRepository.findByUsername("admin").isEmpty()){
             User admin = new User();
             admin.setUsername("admin");

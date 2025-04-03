@@ -28,5 +28,6 @@ public class AuthServiceImpl implements AuthService {
         Order order = new Order();
         order.setUser(user);
         orderRepository.save(order);
+        order.setTotalPrice(0.0);
     }
 }
