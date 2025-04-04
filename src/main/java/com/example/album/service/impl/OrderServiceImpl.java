@@ -37,7 +37,6 @@ public class OrderServiceImpl implements OrderService {
                 .orElse(new OrderItem());
 
         orderItem.setAlbum(album);
-        System.out.println(order.getTotalPrice());
         orderItem.setUser(user);
         orderItem.setQuantity(quantity);
         order.addAlbum(orderItem);
@@ -50,6 +49,7 @@ public class OrderServiceImpl implements OrderService {
 
         Order order = orderRepository.findByUser(user).get();
         order.setTotalPrice(order.getAlbums().stream().mapToDouble((item) -> item.getQuantity() * item.getAlbum().getPrice()).sum());
+        orderRepository.save(order);
         return order.getOrderDto();
     }
 
@@ -57,21 +57,21 @@ public class OrderServiceImpl implements OrderService {
     public void payOrder() {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Order order = orderRepository.findByUser(user).orElseThrow(()->new RuntimeException("order not found"));
+        System.out.println(order.getTotalPrice());
 
-        order.setUser(null);
-        orderRepository.save(order);
 
         PaidOrder paidOrder = new PaidOrder();
-        paidOrder.setOrder(order);
+        paidOrder.setOrderFormat(user.getUsername()+ " " + order.getTotalPrice());
 
         paidOrderRepository.save(paidOrder);
+
+        // delete user order
+        orderRepository.deleteById(order.getId());
 
         // create new order
         Order newOrder = new Order();
         newOrder.setUser(user);
         orderRepository.save(newOrder);
 
-        // delete user order
-        orderRepository.deleteById(order.getId());
     }
 }

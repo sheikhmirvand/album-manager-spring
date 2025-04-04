@@ -22,7 +22,7 @@
                 </c:if>
                 <c:if test="${role.contains('ROLE_USER')}">
                     <li><a href="/artists">artists</a></li>
-                    <li><a href="/album"></a></li>
+                    <li><a href="/album">album</a></li>
                     <li><a href=""></a></li>
                 </c:if>
             </ul>

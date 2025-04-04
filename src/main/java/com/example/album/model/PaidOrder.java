@@ -11,8 +11,7 @@ public class PaidOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    private Order order;
+    private String orderFormat;
 
     @CreatedDate
     private LocalDateTime localDateTime = LocalDateTime.now();
@@ -20,9 +19,9 @@ public class PaidOrder {
     public PaidOrder() {
     }
 
-    public PaidOrder(Long id, Order order, LocalDateTime localDateTime) {
+    public PaidOrder(Long id, String orderFormat, LocalDateTime localDateTime) {
         this.id = id;
-        this.order = order;
+        this.orderFormat = orderFormat;
         this.localDateTime = localDateTime;
     }
 
@@ -34,12 +33,12 @@ public class PaidOrder {
         this.id = id;
     }
 
-    public Order getOrder() {
-        return order;
+    public String getOrderFormat() {
+        return orderFormat;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setOrderFormat(String orderFormat) {
+        this.orderFormat = orderFormat;
     }
 
     public LocalDateTime getLocalDateTime() {
