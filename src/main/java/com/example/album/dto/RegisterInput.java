@@ -2,9 +2,17 @@ package com.example.album.dto;
 
 import com.example.album.model.Role;
 import com.example.album.model.User;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Length;
 
 public class RegisterInput {
+    @NotBlank(message = "user name cant be blank")
+    @NotNull(message = "user name is required")
     private String username;
+
+    @Length(min = 6,message = "password is very short")
+    @NotNull(message = "password is required")
     private String password;
 
     public RegisterInput() {
