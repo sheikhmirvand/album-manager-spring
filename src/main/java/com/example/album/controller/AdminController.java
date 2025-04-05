@@ -6,8 +6,10 @@ import com.example.album.dto.CreateMusicInput;
 import com.example.album.service.AlbumService;
 import com.example.album.service.ArtistService;
 import com.example.album.service.MusicService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,14 +34,19 @@ public class AdminController {
 
     @GetMapping("/create-artist")
     public String getCreateArtistPage (Model model) {
-        model.addAttribute("artist",new CreateArtistInput());
+        model.addAttribute("createArtistInput",new CreateArtistInput());
         return "createArtist";
     }
 
     @PostMapping("/create-artist")
-    public String createArtist (@ModelAttribute("artist") CreateArtistInput artistInput) {
-       Boolean isArtistCreated =  artistService.createArtist(artistInput);
-       System.out.println(isArtistCreated);
+    public String createArtist (@Valid @ModelAttribute("createArtistInput") CreateArtistInput createArtistInput, Errors errors,Model model) {
+        System.out.println(errors.hasErrors());
+        if (errors.hasErrors()) {
+           model.addAttribute("errors",errors.getAllErrors());
+           System.out.println("is ejra shod");
+           return "createArtist";
+       }
+        boolean isArtistCreated =  artistService.createArtist(createArtistInput);
        if(isArtistCreated)
             return "redirect:/artists";
        return "/create-artist?error=true";

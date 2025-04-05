@@ -1,10 +1,17 @@
 package com.example.album.dto;
 
 import com.example.album.model.Artist;
+import jakarta.validation.constraints.NotBlank;
 
 public class CreateArtistInput {
+
+    @NotBlank(message = "first name is required")
     private String firstName;
+
+    @NotBlank(message = "last name is required")
     private String lastName;
+
+    @NotBlank(message = "nik name is required")
     private String nikName;
 
     public CreateArtistInput() {
