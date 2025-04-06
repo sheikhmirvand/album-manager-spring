@@ -1,11 +1,16 @@
 package com.example.album.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.web.multipart.MultipartFile;
 
 public class CreateAlbumDto {
+    @NotBlank(message = "name is required")
     private String name;
     private double price;
+    @NotBlank(message = "artist nik name is required")
     private String nikName;
+    @NotNull(message = "cover is required")
     private MultipartFile file;
 
     public CreateAlbumDto() {

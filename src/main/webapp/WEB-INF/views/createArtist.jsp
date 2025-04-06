@@ -16,7 +16,7 @@
         <c:if test="${not empty errors}">
             <c:forEach items="${errors}" var="error">
                 <c:set var="message" value="${error.defaultMessage}" scope="request"></c:set>
-                <jsp:include page="authErrorToast.jsp"></jsp:include>
+                <jsp:include page="errorToast.jsp"></jsp:include>
             </c:forEach>
         </c:if>
     </div>

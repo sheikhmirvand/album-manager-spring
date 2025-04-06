@@ -1,4 +1,6 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+
 
 <!doctype html>
 <html lang="en">
@@ -12,6 +14,14 @@
     <title>create album</title>
 </head>
 <body>
+<div class="absolute h-[300px] right-0 top-0">
+    <c:if test="${not empty errors}">
+        <c:forEach items="${errors}" var="error">
+            <c:set var="message" value="${error.defaultMessage}" scope="request" />
+            <jsp:include page="errorToast.jsp" />
+        </c:forEach>
+    </c:if>
+</div>
     <jsp:include page="navbar.jsp"/>
     <h1>create album</h1>
     <form:form action="/admin/create-album" modelAttribute="inputAlbum" method="post" enctype="multipart/form-data">

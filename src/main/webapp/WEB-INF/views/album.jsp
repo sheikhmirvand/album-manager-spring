@@ -10,9 +10,11 @@
 </head>
 <body>
     <jsp:include page="navbar.jsp"/>
-    <h1>${album.name}</h1>
-    <button class="addToCartButton">add to cart</button>
-    <input type="number" name="quantity" id="" class="quantity"/>
+    <div class="container">
+        <h1>${album.name}</h1>
+        <button class="addToCartButton">add to cart</button>
+        <input type="number" name="quantity" id="" class="quantity"/>
+    </div>
 
     <script>
         const addToCartButton = document.querySelector(".addToCartButton");

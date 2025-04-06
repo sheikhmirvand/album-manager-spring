@@ -26,42 +26,49 @@ public class AdminController {
 
     private final MusicService musicService;
 
-    public AdminController(ArtistService artistService, AlbumService albumService, MusicService musicService){
+    public AdminController(ArtistService artistService, AlbumService albumService, MusicService musicService) {
         this.artistService = artistService;
         this.albumService = albumService;
         this.musicService = musicService;
     }
 
     @GetMapping("/create-artist")
-    public String getCreateArtistPage (Model model) {
-        model.addAttribute("createArtistInput",new CreateArtistInput());
+    public String getCreateArtistPage(Model model) {
+        model.addAttribute("createArtistInput", new CreateArtistInput());
         return "createArtist";
     }
 
     @PostMapping("/create-artist")
-    public String createArtist (@Valid @ModelAttribute("createArtistInput") CreateArtistInput createArtistInput, Errors errors,Model model) {
+    public String createArtist(@Valid @ModelAttribute("createArtistInput") CreateArtistInput createArtistInput, Errors errors, Model model) {
         System.out.println(errors.hasErrors());
         if (errors.hasErrors()) {
-           model.addAttribute("errors",errors.getAllErrors());
-           System.out.println("is ejra shod");
-           return "createArtist";
-       }
-        boolean isArtistCreated =  artistService.createArtist(createArtistInput);
-       if(isArtistCreated)
+            model.addAttribute("errors", errors.getAllErrors());
+            System.out.println("is ejra shod");
+            return "createArtist";
+        }
+        boolean isArtistCreated = artistService.createArtist(createArtistInput);
+        if (isArtistCreated)
             return "redirect:/artists";
-       return "/create-artist?error=true";
+        return "/create-artist?error=true";
     }
-    
+
     @GetMapping("/create-album")
-    public String showCreateAlbumPage (Model model) {
-        model.addAttribute("inputAlbum",new CreateAlbumDto());
+    public String showCreateAlbumPage(Model model) {
+        model.addAttribute("inputAlbum", new CreateAlbumDto());
         return "createAlbum";
     }
 
     @PostMapping("/create-album")
-    public String createArtist (@ModelAttribute("inputAlbum") CreateAlbumDto inputAlbum) throws Exception {
+    public String createArtist(
+            @Valid @ModelAttribute("inputAlbum") CreateAlbumDto inputAlbum
+            , Errors errors
+            , Model model) throws Exception {
+        if (errors.hasErrors()) {
+            model.addAttribute("errors",errors.getAllErrors());
+            return "createAlbum";
+        }
         boolean newAlbum = albumService.createNewAlbum(inputAlbum);
-        if(newAlbum) {
+        if (newAlbum) {
             return "redirect:/admin/upload-music";
         }
 
@@ -69,17 +76,17 @@ public class AdminController {
     }
 
     @GetMapping("/upload-music")
-    public String showUploadPage () {
+    public String showUploadPage() {
         return "upload";
     }
 
     @PostMapping("/upload-music")
-    public String uploadMusic (
+    public String uploadMusic(
             @RequestParam("music") MultipartFile file
-            ,@RequestParam("artistId") String id
-            ,@RequestParam("name") String name
+            , @RequestParam("artistId") String id
+            , @RequestParam("name") String name
     ) throws IOException {
-        CreateMusicInput input = new CreateMusicInput(name,Long.parseLong(id),file);
+        CreateMusicInput input = new CreateMusicInput(name, Long.parseLong(id), file);
         musicService.uploadMusic(input);
 
         return "salam";
