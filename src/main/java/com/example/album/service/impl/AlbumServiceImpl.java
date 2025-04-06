@@ -7,6 +7,7 @@ import com.example.album.model.Album;
 import com.example.album.model.Artist;
 import com.example.album.repository.AlbumRepository;
 import com.example.album.repository.ArtistRepository;
+import com.example.album.repository.MusicRepository;
 import com.example.album.service.AlbumService;
 import org.springframework.stereotype.Service;
 
@@ -21,11 +22,13 @@ public class AlbumServiceImpl implements AlbumService {
     public final static String UPLOAD_PATH = "/home/ali/Desktop/show/album/upload/cover/";
     private final AlbumRepository albumRepository;
     private final ArtistRepository artistRepository;
+    private final MusicRepository musicRepository;
 
 
-    public AlbumServiceImpl(AlbumRepository albumRepository, ArtistRepository artistRepository) {
+    public AlbumServiceImpl(AlbumRepository albumRepository, ArtistRepository artistRepository, MusicRepository musicRepository) {
         this.albumRepository = albumRepository;
         this.artistRepository = artistRepository;
+        this.musicRepository = musicRepository;
     }
 
     @Override

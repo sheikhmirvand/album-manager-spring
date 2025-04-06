@@ -31,6 +31,7 @@ public class AlbumController {
     @GetMapping("/{id}")
     public String getAlbumPage(@PathVariable Long id,Model model) throws AlbumNotFoundException {
         AlbumDto albumDto = albumService.getById(id);
+
         model.addAttribute("album",albumDto);
         return "album";
     }

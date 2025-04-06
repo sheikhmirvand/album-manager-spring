@@ -11,6 +11,8 @@
 <body>
     <jsp:include page="navbar.jsp"/>
     <div class="container">
+        <audio src="${pageContext.request.contextPath}/upload/music/${album.sampleMusic.fileName}" controls="controls"></audio>
+        <h1>${pageContext.request.contextPath}/upload/music/${album.sampleMusic.fileName}</h1>
         <h1>${album.name}</h1>
         <button class="addToCartButton">add to cart</button>
         <input type="number" name="quantity" id="" class="quantity"/>
@@ -23,7 +25,6 @@
         addToCartButton.addEventListener("click",e=>{
             e.preventDefault();
             const path = window.location.pathname.split("/").at(-1);
-            console.log(albumQuantity.value);
 
             fetch("/order/create-order/"+path+"?quantity="+albumQuantity.value,{
                 method : "POST",

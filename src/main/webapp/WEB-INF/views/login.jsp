@@ -1,3 +1,6 @@
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -10,8 +13,12 @@
     <title>Document</title>
 </head>
 <body>
-
-
+    <div class="absolute right-0 top-0 h-[300px]">
+        <c:if test="${not empty param.error}">
+            <c:set var="message" value="username or password not valid" scope="request"/>
+            <jsp:include page="errorToast.jsp"/>
+        </c:if>
+    </div>
 
     <div class="flex justify-center items-center h-screen p-10 ">
         <div class="grid md:grid-cols-2 grid-cols-1  border rounded-3xl">
